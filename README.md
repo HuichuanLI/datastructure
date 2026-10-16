@@ -6,6 +6,7 @@
 2. **排序基础**
     - [Mergesort.java](Mergesort.java)：归并排序
     - [Quicksort.c](Quicksort.c)：快速排序
+    - [Quicksort2way.c](Quicksort2way.c)：双路快速排序
 
 3. **数据结构基础：动态数组，栈和队列**
     - [Array.java](Array.java)：动态数组

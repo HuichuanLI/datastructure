@@ -41,3 +41,34 @@ void Quicksort2way(int arr[],int l,int r) {
     Quicksort2way(arr,p+1,r);
 }
 
+int main() {
+    // 测试用例1：普通乱序
+    int arr1[] = {4,2,5,1,3};
+    int n1 = sizeof(arr1)/sizeof(arr1[0]);
+    printf("原数组1：");
+    printArray(arr1,n1);
+    Quicksort2way(arr1,0,n1-1);
+    printf("排序后1：");
+    printArray(arr1,n1);
+
+    // 测试用例2：大量重复元素
+    int arr2[] = {2,2,1,1,2,2};
+    int n2 = sizeof(arr2)/sizeof(arr2[0]);
+    printf("原数组2：");
+    printArray(arr2,n2);
+    Quicksort2way(arr2,0,n2-1);
+    printf("排序后2：");
+    printArray(arr2,n2);
+
+    // 测试用例3：已经有序
+    int arr3[] = {1,2,3,4,5};
+    int n3 = sizeof(arr3)/sizeof(arr3[0]);
+    printf("原数组3：");
+    printArray(arr3,n3);
+    Quicksort2way(arr3,0,n3-1);
+    printf("排序后3：");
+    printArray(arr3,n3);
+
+    return 0;
+}
+

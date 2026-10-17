@@ -49,15 +49,6 @@ int BinarySearch2(int arr[],int l,int r,int target) {
 
 
 
-
-
-
-
-
-
-
-
-
 int main(){
     int arr[] = {1,3,5,7,9,11};
     int len = sizeof(arr)/sizeof(arr[0]);

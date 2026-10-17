@@ -8,6 +8,7 @@
     - [Quicksort.c](Quicksort.c)：快速排序
     - [Quicksort2way.c](Quicksort2way.c)：双路快速排序
     - [Quicksort3ways.c](Quicksort3ways.c)：三路快速排序
+    - [Quicksort3ways_nopointer.c](Quicksort3ways_nopointer.c)：三路快速排序（无指针）
 
 3. **数据结构基础：动态数组，栈和队列**
     - [Array.java](Array.java)：动态数组
@@ -19,3 +20,6 @@
     - [LinkedList.java](LinkedList.java)：单向链表
     - [LinkedListStack.java](LinkedListStack.java)：链表实现栈
     - [LinkedListQueue.java](LinkedListQueue.java)：链表实现队列
+
+5. **递归，循环不变量：二分查找法**
+   - [BinarySearch.c](BinarySearch.c)：二分查找法（递归，非递归，循环不变量）

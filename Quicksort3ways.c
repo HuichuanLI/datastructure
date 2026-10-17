@@ -10,7 +10,12 @@ void swap(int arr[],int l,int r) {
 void partition(int arr[],int l,int r, int *lt, int *gt) {
     //元素：l：开头，指向val,r:末尾，lt：<和=的分界线，gt：>和=的分界线，i当前遍历的元素
     //arr[l+1,lt]<v arr[lt+1,gt)=v arr[gt,r]>v
-    int v = arr[l]; // 选最左边作为基准
+
+     //随机化标定点
+    srand((unsigned int)time(NULL));
+    int p=rand()%(r-l+1)+l;
+    swap(arr,l,p); 
+    
     *lt = l;
     *gt = r + 1;
     int i = l + 1; // i从基准下一个开始遍历

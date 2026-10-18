@@ -24,3 +24,6 @@
 5. **递归，循环不变量：二分查找法**
    - [BinarySearch.c](BinarySearch.c)：二分查找法（递归，非递归，循环不变量）
    - [Binarysearch_.c](Binarysearch_.c)：二分查找法变种：（左右边界，upper，ceil）
+
+5. **二分搜索树🌲**
+     - [BST.c](BST.c)：二分搜索树（添加元素，查询元素）

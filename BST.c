@@ -1,6 +1,9 @@
 #include <stdbool.h>
 #include <stddef.h>
+#include <stdio.h>
 #include <stdlib.h>
+
+#define MAX_STACK 100
 
 typedef struct BSTNode {
     int val;
@@ -12,6 +15,26 @@ typedef struct {
     BSTNode *root;
     int size;
 }BST;
+
+typedef struct {
+    BSTNode* data[MAX_STACK];
+    int top;
+} Stack;
+
+void stackInit(Stack *s);
+int stackIsEmpty(Stack *s);
+void stackPush(Stack *s, BSTNode* node);
+BSTNode* stackPop(Stack *s);
+
+#define MAX_QUEUE 100
+typedef struct {
+    BSTNode* data[MAX_QUEUE];
+    int front;
+    int rear;
+} Queue;
+
+
+
 
 BST* bst_create(){
     BST *tree = malloc(sizeof(BST));
@@ -74,4 +97,61 @@ bool contains(BSTNode *node,int e) {
 
 bool bst_contains(int e,BST *tree) {
     return contains(tree->root,e);
+}
+
+//前序遍历以node为根节点的二分搜索树，递归算法
+void preOrder(BST *tree,BSTNode *node) {
+    if (node==NULL)return;
+
+    printf("%d",node->val);
+    preOrder(tree,node->left);
+    preOrder(tree,node->right);
+}
+
+void bst_preOrder(BST *tree) {
+    preOrder(tree,tree->root);
+}
+
+//非递归，栈实现前序遍历
+void preOrderNR(BST *tree) {
+    if(tree->root == NULL) return;
+    Stack st;
+    stackInit(&st);
+    stackPush(&st, tree->root);
+
+    while (!stackIsEmpty(&st)) {
+        BSTNode* cur=stackPop(&st);
+        printf("%d ", cur->val);
+        if(cur->right != NULL){
+            stackPush(&st, cur->right);
+        }
+        if(cur->left != NULL){
+            stackPush(&st, cur->left);
+        }
+    }
+}
+
+//中序遍历:遍历以node为根节点的二分搜索树，递归算法
+void inOrder(BST *tree,BSTNode *node) {
+    if (node==NULL) return;
+
+    inOrder(tree,node->left);
+    printf("%d",node->val);//遍历父亲节点
+    inOrder(tree,node->right);
+}
+
+void bst_inOrder(BST *tree) {
+    inOrder(tree,tree->root);
+}
+
+//后序遍历(left,right,node)：遍历以node为根节点的二分搜索树，递归算法
+void postOrder(BST *tree,BSTNode *node) {
+    if (node==NULL)return;
+
+    postOrder(tree,node->left);
+    postOrder(tree,node->right);
+    printf("%d",node->val);
+}
+void bst_postOrder(BST *tree) {
+    postOrder(tree,tree->root);
 }

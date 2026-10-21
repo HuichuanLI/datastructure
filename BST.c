@@ -16,26 +16,6 @@ typedef struct {
     int size;
 }BST;
 
-typedef struct {
-    BSTNode* data[MAX_STACK];
-    int top;
-} Stack;
-
-void stackInit(Stack *s);
-int stackIsEmpty(Stack *s);
-void stackPush(Stack *s, BSTNode* node);
-BSTNode* stackPop(Stack *s);
-
-#define MAX_QUEUE 100
-typedef struct {
-    BSTNode* data[MAX_QUEUE];
-    int front;
-    int rear;
-} Queue;
-
-
-
-
 BST* bst_create(){
     BST *tree = malloc(sizeof(BST));
     tree->root = NULL;
@@ -80,6 +60,39 @@ void bst_add(BST *tree, int e) {
    tree->root=add(tree->root,e,tree);
 }
 
+//非递归二分搜索树添加元素
+void add_U(BST *tree,int e) {
+    //处理根节点为空的情况
+    if (tree->root==NULL) {
+        tree->root=node_create(e);
+        tree->size++;
+    }
+
+    BSTNode *p=tree->root;//追踪父亲节点
+    while (p!=NULL) {
+        if (e<p->val) {
+            if (p->left==NULL) {
+                p->left=node_create(e);
+                tree->size++;
+                return ;
+            }
+            p=p->left;
+        }
+
+        if (e>p->val) {
+            if (p->right==NULL) {
+                p->right=node_create(e);
+                tree->size++;
+                return;
+            }
+            p=p->right;
+        }
+        else {
+            return;
+        }
+    }
+}
+
 //看二分搜索树中是否包含元素e
 //看以node为根的二分搜索树中是否包含元素e，递归函数
 bool contains(BSTNode *node,int e) {
@@ -100,58 +113,84 @@ bool bst_contains(int e,BST *tree) {
 }
 
 //前序遍历以node为根节点的二分搜索树，递归算法
-void preOrder(BST *tree,BSTNode *node) {
+void preOrder(BSTNode *node) {
     if (node==NULL)return;
 
-    printf("%d",node->val);
-    preOrder(tree,node->left);
-    preOrder(tree,node->right);
+    printf("%d ",node->val);
+    preOrder(node->left);
+    preOrder(node->right);
 }
 
 void bst_preOrder(BST *tree) {
-    preOrder(tree,tree->root);
-}
-
-//非递归，栈实现前序遍历
-void preOrderNR(BST *tree) {
-    if(tree->root == NULL) return;
-    Stack st;
-    stackInit(&st);
-    stackPush(&st, tree->root);
-
-    while (!stackIsEmpty(&st)) {
-        BSTNode* cur=stackPop(&st);
-        printf("%d ", cur->val);
-        if(cur->right != NULL){
-            stackPush(&st, cur->right);
-        }
-        if(cur->left != NULL){
-            stackPush(&st, cur->left);
-        }
-    }
+    preOrder(tree->root);
 }
 
 //中序遍历:遍历以node为根节点的二分搜索树，递归算法
-void inOrder(BST *tree,BSTNode *node) {
+void inOrder(BSTNode *node) {
     if (node==NULL) return;
 
-    inOrder(tree,node->left);
-    printf("%d",node->val);//遍历父亲节点
-    inOrder(tree,node->right);
+    inOrder(node->left);
+    printf("%d ",node->val);//遍历父亲节点
+    inOrder(node->right);
 }
 
 void bst_inOrder(BST *tree) {
-    inOrder(tree,tree->root);
+    inOrder(tree->root);
 }
 
 //后序遍历(left,right,node)：遍历以node为根节点的二分搜索树，递归算法
-void postOrder(BST *tree,BSTNode *node) {
+void postOrder(BSTNode *node) {
     if (node==NULL)return;
 
-    postOrder(tree,node->left);
-    postOrder(tree,node->right);
-    printf("%d",node->val);
+    postOrder(node->left);
+    postOrder(node->right);
+    printf("%d ",node->val);
 }
 void bst_postOrder(BST *tree) {
-    postOrder(tree,tree->root);
+    postOrder(tree->root);
 }
+
+//寻找二分搜索树的最小值
+int minimum(BSTNode *node) {
+    if (node->left==NULL)
+         return node->left->val;
+
+    return minimum(node->left);
+}
+
+int bst_minimum(BST *tree) {
+    if (tree->size==0)return -1;
+    return minimum(tree->root);
+}
+
+//寻找二分搜索树的最大值
+int maximum(BSTNode *node) {
+    if (node->right==NULL)return node->right->val;
+
+    return maximum(node->right);
+}
+int bst_maximum(BST *tree) {
+    if (tree->size==0)return -1;
+    return maximum(tree->root);
+}
+
+//删除以node为根的二分搜素树的最小值，递归算法，返回新的二分搜索树的新根
+BSTNode* removeMin(BST *tree,BSTNode *node) {
+    if (node->left==NULL) {
+        BSTNode *rightNode=node->right;
+        node->right=NULL;
+        tree->size--;
+        return rightNode;
+    }
+    node->left=removeMin(tree,node->left);
+    return node;
+}
+//删除二分搜素树的最小值，返回最小值
+int bst_removeMin(BST *tree) {
+    int ret=minimum(tree->root);
+    removeMin(tree,tree->root);
+    return ret;
+}
+
+
+

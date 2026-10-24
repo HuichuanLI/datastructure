@@ -25,6 +25,9 @@
    - [BinarySearch.c](BinarySearch.c)：二分查找法（递归，非递归，循环不变量）
    - [Binarysearch_.c](Binarysearch_.c)：二分查找法变种：（左右边界，upper，ceil）
 
-5. **二分搜索树🌲**
+6. **二分搜索树🌲**
      - [BST.c](BST.c)：二分搜索树（添加元素，查询元素）
      - [LinkedListMap.c](LinkedListMap.c)：映射（基于链表，实现对文档词频统计）
+
+7. **冒泡排序，希尔排序**
+     - [BubbleSort.c](BubbleSort.c)：冒泡排序🫧

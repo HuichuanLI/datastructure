@@ -29,3 +29,4 @@
 
 6. **冒泡排序，希尔排序**
      - [BubbleSort.c](BubbleSort.c)：冒泡排序🫧
+     - [ShellSort.c](ShellSort.c)：希尔排序
